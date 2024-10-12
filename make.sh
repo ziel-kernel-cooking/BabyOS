@@ -13,5 +13,4 @@ nasm -f bin bootloader.asm -o bootloader.bin
 dd if=/dev/zero of=disk.img bs=512 count=20480
 dd if=bootloader.bin of=disk.img bs=512 count=1 conv=notrunc
 dd if=kernel.bin of=disk.img bs=512 seek=1 count=1 conv=notrunc 
-#dd if=../notpad.bin of=disk.img bs=512 seek=1 count=1 conv=notrunc 
 qemu-system-x86_64 -drive format=raw,file=disk.img

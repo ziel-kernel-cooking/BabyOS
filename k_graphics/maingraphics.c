@@ -7,9 +7,11 @@ void example_lines(int del, int startcolor, int size, bool cls, char ascii);
 void delay(int s);
 void clear_screen(int col);
 void clear_line(int wier, int col);
+/*
 char read_ascii_from_screen(int kolu, int wier);
 int read_color_from_screen(int kolu, int wier);
 void roll_screen(int i);
+*/
 
 typedef struct  
 {
