@@ -23,9 +23,6 @@ void freemem(void* block);
 
 extern void _start(){
     clear_screen(0x00);
-    //int col = read_color_from_screen(0, 0);
-    //char chr = read_ascii_from_screen(0, 0);
-    //printchar(chr, 10, 10, col);
     example_lines(1000, 0x00, 2000, true, ' ');
     while (1);
 }
