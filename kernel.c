@@ -1,28 +1,43 @@
 #include <stdbool.h>
 #include <stddef.h>
 
+#define memory_size 100
+#define line_length 80
+#define max_row 25
+
+
 void printchar(const char ascii, int wier, int kolu, int col);
-void printstring(char* msg, int wier, int kolu, int col);
+void printstring(const char* msg, int wier, int kolu, int col);
 void clear_screen(int col);
 void clear_line(int wier, int col);
-void example_lines(int del, int startcolor, int size, bool cls, char ascii);
-char numb_to_char(int numb);
 void delay(int s);
-unsigned char inb(unsigned short port);
 void panic(char *msg);
-/*
+char numb_to_char(int numb);
+unsigned char odklaw();
+
+
 char read_ascii_from_screen(int kolu, int wier);
 int read_color_from_screen(int kolu, int wier);
-void roll_screen(int i);
+void roll_screen();
+char scan_to_ascii(int scan);
 
+bool memalloc(int memory[memory_size][memory_size], int pid);
+bool memset(int memory[memory_size][memory_size], int pid, int addr, int val);
+int memread(int memory[memory_size][memory_size], int pid, int addr);
+bool memfree(int memory[memory_size][memory_size], int pid);
 
-void init_memalocc(void* memstart, size_t memsize);
-void* memalloc();
-void freemem(void* block);
-*/
+void terminal(int memory[memory_size][memory_size], char line[line_length]);
 
 extern void _start(){
     clear_screen(0x00);
-    example_lines(1000, 0x00, 2000, true, ' ');
+    
+    printstring("Welcome to the BabyOS kernel!", 0, 0, 0x0f);
+    printstring("This OS is dedicated to Terrence Andrew Davis, one of the smartests programmers in the world", 1, 0, 0x0f);
+    printstring("Type listcmd;(all commands must end with ;) to list all the commands!", 3, 0, 0x0f);
+
+    char line[line_length] = {0};
+    int memory[memory_size][memory_size] = {0};
+    terminal(memory, line);
+    
     while (1);
 }

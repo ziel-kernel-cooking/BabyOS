@@ -14,16 +14,7 @@ mov dh, 0
 mov dl, 0
 int 0x10
 
-K_LOC equ 0x7e00 ;should be 0x7e00
-
-mov di, K_LOC ; memory to clean
-mov cx, 256 ; number of bytes to clean
-
-memclean:
-    mov byte [di], 0
-    inc di
-    loop memclean
-    ;end of cleaning
+K_LOC equ 0x7e00 ; kernel location 0x7e00
 
 mov bx, menumsg
 mov ah, 0x0e
@@ -107,7 +98,7 @@ realch:
 startboot:
     mov dx, si
     mov ah, 2
-    mov al, 20 ;number of sectors to read
+    mov al, 100 ;number of sectors to read
     mov ch, 0 ;cylinder number
     mov cl, 2 ;starting sector number(1)
     mov dh, 0 ; head number
@@ -119,7 +110,7 @@ startboot:
 
     mov bx, K_LOC
     mov di, [bx]
-    cmp di, 12
+    cmp di, 1
     jne unsucload
 
     jmp sucload
@@ -185,6 +176,9 @@ exitloop2:
     cmp bp, 2
     je K_LOC
 
+exitloop:
+    jmp exitloop
+
 GDT_start:
     GDT_null:
         dd 0x0
@@ -192,48 +186,41 @@ GDT_start:
 
     GDT_code:
         dw 0xffff
-        dw 0x0000
-        db 0x00
-        db 0b10011010
-        db 0b11001111
-        db 0x00
+        dw 0x0
+        db 0x0
+        db 10011010b
+        db 11001111b
+        db 0x0
 
     GDT_data:
         dw 0xffff
-        dw 0x0000
-        db 0x00
-        db 0b10010010
-        db 0b11001111
-        db 0x00
-
-GDT_descriptor:
-    dw GDT_end - GDT_start - 1
-    dd GDT_start
+        dw 0x0
+        db 0x0
+        db 10010010b
+        db 11001111b
+        db 0x0
 
 GDT_end:
-    CODE_SEG equ GDT_code - GDT_start
-    DATA_SEG equ GDT_data - GDT_start
 
-; pierw end potem dexcriptor
-exitloop:
-    jmp exitloop
-
+GDT_descriptor:
+    dw GDT_end - GDT_start - 1 
+    dd GDT_start
 
 startprotectedmode:
-     ; tu powinno byc CODE_SEG
     mov ah, 1
     mov cx, 0x2000
     int 0x10
 
+    CODE_SEG equ GDT_code - GDT_start
+    DATA_SEG equ GDT_data - GDT_start
+
     cli
-    ;test start
     xor ax, ax
     mov ds, ax
     mov es, ax
-    mov ss, ax
     mov fs, ax
     mov gs, ax
-    ;test end
+
     lgdt [GDT_descriptor]
     mov eax, cr0
     or eax, 1
@@ -248,10 +235,15 @@ load_32program:
     mov fs, ax
     mov gs, ax
     mov ss, ax
-    mov esp, 0x90000
+
+    mov ebp, 0x90000
+    mov esp, ebp
+
+    in al, 0x92
+    or al, 0x02
+    out 0x92, al
 
     jmp CODE_SEG:K_LOC
-    jmp exitloop
 
 times 510-($-$$) db 0
 db 0x55, 0xaa

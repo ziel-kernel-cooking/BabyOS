@@ -1,44 +1,52 @@
 #include <stddef.h>
-#define BLOCK_SIZE 4096
-/*
-void init_memalocc(void* memstart, size_t memsize);
-void* memalloc();
-void freemem(void* block);
+#include <stdbool.h>
 
-typedef struct memblock
-{
-    struct memblock* next;
+#define memory_size 100
+
+bool memalloc(int memory[memory_size][memory_size], int pid);
+bool memset(int memory[memory_size][memory_size], int pid, int addr, int val);
+int memread(int memory[memory_size][memory_size], int pid, int addr);
+bool memfree(int memory[memory_size][memory_size], int pid);
+
+bool memalloc(int memory[memory_size][memory_size], int pid){
+    if(memory[pid][0] != 0 || pid >= memory_size){
+        return false;
+    }else{
+        memory[pid][0] = 1;
+        int i;
+        for (i = 1; i != memory_size; i++){
+            memory[pid][i] = 0;
+        }
+        return true;
+    }
+}
+
+bool memset(int memory[memory_size][memory_size], int pid, int addr, int val){
+    if (memory[pid][0] != 1 || !((addr != 0) && !(addr > memory_size - 1)) || pid >= memory_size){
+        return false;
+    }else{
+            memory[pid][addr] = val;
+            return true;
+    }
     
-} memblock;
+}
 
-memblock* free_list = NULL;
-
-void init_memalocc(void* memstart, size_t memsize){
-    size_t block_count = memsize / BLOCK_SIZE;
-    free_list = (memblock*)memstart;
-
-    memblock* current = free_list;
-
-    for (size_t i = 0; i < block_count - 1; i++){
-        current->next = (memblock*)((char*)current + BLOCK_SIZE);
-        current = current->next;
+int memread(int memory[memory_size][memory_size], int pid, int addr){
+    if(memory[pid][0] != 1){
+        return true;
+    }else{
+        return memory[pid][addr];
     }
-    current->next = NULL;
 }
 
-void* memalloc(){
-    if (free_list == NULL){
-        return NULL;
+bool memfree(int memory[memory_size][memory_size], int pid){
+    if (memory[pid][0] != 1 || pid >= memory_size){
+        return false;
+    }else{
+        int i;
+        for (i = 0; i != memory_size; i++){
+            memory[pid][i] = 0;
+        }
+        return true;
     }
-
-    memblock* block = free_list;
-    free_list = free_list->next;
-
-    return (void*)block;
 }
-
-void freemem(void* block){
-    ((memblock*)block)->next = free_list;
-    free_list = (memblock*)block;
-}
-*/

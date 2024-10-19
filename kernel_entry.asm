@@ -1,5 +1,5 @@
 [bits 32]
-dd 12
+dd 1
 [extern _start]
 call _start
 jmp $
