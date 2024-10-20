@@ -10,7 +10,7 @@ A: His work inspired me to learn more about computers<br>
 B: He was a genius that almost no one appreciated<br>
 <br>
 Why Baby:<br>
--Because I feel like a baby who want to understand the whole world<br>
+-Because I feel like a baby who wants to understand the whole world<br>
 <br>
 PS:<br>
 I'm new to github, so if I screw something up, please explain it in a polite way, and don't insult or swear.<br>
