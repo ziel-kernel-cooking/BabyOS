@@ -32,12 +32,18 @@ int memread(int memory[memory_size][memory_size], int pid, int addr);
 bool memfree(int memory[memory_size][memory_size], int pid);
 
 void intToString(int num, char str[]);
+void exec(int addr);
+void write_to_ram(int addr, int data);
+int read_from_ram(int addr);
 
 void init_commands(char commands[commands_number][10]){
     strcpy("listcmd", commands[0], 7); // list all commands
     strcpy("clear", commands[1], 5); //clears the screen
     strcpy("set", commands[2], 3); // set value to memory on adress
-    strcpy("get", commands[3], 4); //gets and prints value of the memory on adrress
+    strcpy("get", commands[3], 3); //gets and prints value of the memory on adrress
+    strcpy("exec", commands[4], 4); //executes program at adress in ram
+    strcpy("wram", commands[5], 4); // writes data to ram
+    strcpy("rram", commands[6], 4); // reads from ram
 }
 
 void splitcommand(char line[line_length], char splitedcomm[5][10]){
@@ -195,6 +201,53 @@ void handle_commands(char commands[commands_number][10], char line[line_length],
         }
         memory[0][4] = cy;
         return;
+
+    case 4:
+        clear_screen(col);
+        exec(arg1int);
+        if(cy != max_row){
+            printstring("/done", cy, 0, col);
+            cy++;
+        }else{
+            roll_screen();
+            printstring("/done", max_row - 1, 0, col);
+        }
+        memory[0][4] = cy;
+        return;
+
+    case 5:
+        write_to_ram(arg1int, arg2int);
+        if(cy != max_row){
+            printstring("/done", cy, 0, col);
+            cy++;
+        }else{
+            roll_screen();
+            printstring("/done", max_row - 1, 0, col);
+        }
+        memory[0][4] = cy;
+        return;
+
+    case 6:
+        tempint = read_from_ram(arg1int);
+        intToString(tempint, tempchar);
+        if(cy != max_row){
+            printstring("/", cy, 0, col);
+            cy++;
+        }else{
+            roll_screen();
+            printstring("/", max_row - 1, 0, col);
+            roll_screen;
+        }
+
+        if(cy != max_row){
+            printstring(tempchar, cy, 0, col);
+            cy++;
+        }else{
+            roll_screen();
+            printstring(tempchar, max_row - 1, 0, col);
+        }
+        memory[0][4] = cy;
+        return; 
 
     default:
         if(cy != max_row){

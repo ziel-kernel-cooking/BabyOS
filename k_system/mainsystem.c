@@ -23,6 +23,21 @@ void delay(int s){
     }
 }
 
+void exec(int addr){
+    __asm__("call *%0" :: "r"(addr));
+}
+
+void write_to_ram(int addr, int data){
+    unsigned char *ptr = (unsigned char*)addr;
+    *ptr = data;
+}
+
+int read_from_ram(int addr){
+    unsigned char *ptr = (unsigned char*)addr;
+    int data = *ptr;
+    return data;
+}
+
 static inline uint8_t inb(uint16_t port) {
     uint8_t ret;
     __asm__ __volatile__ ("inb %1, %0" : "=a"(ret) : "Nd"(port));
