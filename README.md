@@ -3,10 +3,11 @@ This OS is dedicated to Terrence Andrew Davis, one of the smartests programmers 
 <br>
 Why I'm making this operating system it's so dump idea to make ring 0 OS, it will not have any practtical use etc.:<br>
 -I'm making this OS not to create a second Linux or Windows etc. but to learn more about computers and be smarter<br>
-Why you are dedicating this OS to a strange/crazy guy:
--Because:
-A: His work inspired me to learn more about computers
-B: He was a genius that almost no one appreciated
+<br>
+Why you are dedicating this OS to a strange/crazy guy:<br>
+-Because:<br>
+A: His work inspired me to learn more about computers<br>
+B: He was a genius that almost no one appreciated<br>
 <br>
 To build it install i386-gcc cross compiler(Caution cross compiler installer script is not mine. I added it because if orginal repo will die, you can still easly install this. Orginal repo: https://github.com/mell-o-tron/MellOs/blob/main/A_Setup/setup-gcc-debian.sh)<br>
 <code>./setup-gcc-debian.sh</code><br>
