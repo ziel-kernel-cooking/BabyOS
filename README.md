@@ -9,6 +9,9 @@ Why you are dedicating this OS to a strange/crazy guy:<br>
 A: His work inspired me to learn more about computers<br>
 B: He was a genius that almost no one appreciated<br>
 <br>
+Why Baby:<br>
+-Because I feel like a baby who want to understand the whole world<br>
+<br>
 To build it install i386-gcc cross compiler(Caution cross compiler installer script is not mine. I added it because if orginal repo will die, you can still easly install this. Orginal repo: https://github.com/mell-o-tron/MellOs/blob/main/A_Setup/setup-gcc-debian.sh)<br>
 <code>./setup-gcc-debian.sh</code><br>
 And run make.sh<br>
