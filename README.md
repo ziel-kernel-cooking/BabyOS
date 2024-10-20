@@ -1,7 +1,7 @@
 # BabyOS, A fully functional operating system
 This OS is dedicated to Terrence Andrew Davis, one of the smartests programmers in the world<br>
 <br>
-Why I'm making this operating system it's so dump idea to make ring 0 OS, it will not have any practtical use etc.:<br>
+Why I'm making this operating system it's so dump idea to make ring 0 OS, it will not have any practical use etc.:<br>
 -I'm making this OS not to create a second Linux or Windows etc. but to learn more about computers and be smarter<br>
 <br>
 Why you are dedicating this OS to a strange/crazy guy:<br>
