@@ -60,7 +60,6 @@ void roll_screen(){
     int tempcol;
     for (i = 0; i != maxw; i++){
         for (k = 0; k != maxk; k++){
-            printchar('@', i, k, 0x0f);
             tempch = read_ascii_from_screen(k, i+1);
             tempcol = read_color_from_screen(k, i+1);
             printchar(tempch, i, k, tempcol);
@@ -81,7 +80,7 @@ void clear_screen(int col){
 void clear_line(int wier, int col){
     int i;
     for (i = 0; i != 80; i++){
-        printchar(' ', wier, i, col);
+        printchar(0, wier, i, col);
     }
 }
 

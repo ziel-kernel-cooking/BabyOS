@@ -160,7 +160,7 @@ void terminal(int memory[memory_size][memory_size], char line[line_length]){
             if (cy >= max_row){
                 printchar(line[cx], cy, cx, 0x0f);
                 for (i = 0; i != line_length; i++){
-                    line[i] = ' ';
+                    line[i] = 0;
                 }
                 roll_screen();
                 memory[0][4] = max_row - 1;
