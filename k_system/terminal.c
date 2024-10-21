@@ -98,7 +98,7 @@ void handle_key(int memory[memory_size][memory_size], char line[line_length], in
 
     case 0x0E:
         if (memory[0][3] > 0){
-            line[memory[0][3] - 1] = ' ';
+            line[memory[0][3] - 1] = 0;
             memory[0][3]--;
         }
         return;
